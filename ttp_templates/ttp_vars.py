@@ -24,7 +24,7 @@ short_interface_names = {
     'POS': ['^POS', '^PO'],
     'LAG': ['^PortChannel', '^Port-channel', '^Port-Channel', '^port-channel', '^po', '^Po', "^Bundle-Ether", "^BE", "^Eth-Trunk", "^ae"],
     'Serial': ['^Serial', '^Se', '^S'],
-    'Te': ['^TenGigabitEthernet', '^TenGigEthernet', '^TenGigEth', '^TenGigE', '^TenGig', '^TeGig', '^Ten', '^te', '^XGigabitEthernet', '^TenGe', '^10GE', '^xe-'],
+    'TE': ['^TenGigabitEthernet', '^TenGigEthernet', '^TenGigEth', '^TenGigE', '^TenGig', '^TeGig', '^Ten', '^te', '^XGigabitEthernet', '^TenGe', '^10GE', '^xe-'],
     'Tunnel': ['^Tunnel', '^Tun', '^Tu', '^gr-'],
     '25GE': ['^TwentyFiveGigabitEthernet', '^TwentyFiveGigEthernet', '^TwentyFiveGigEth', '^TwentyFiveGigE', '^TwentyFiveGig', '^Twe', '^TF', '^Tf', '^tf'],
     '2GE': ['^Tw', '^Two'],

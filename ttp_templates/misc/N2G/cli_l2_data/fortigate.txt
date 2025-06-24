@@ -1,0 +1,21 @@
+<template name="fortigate" results="per_template">
+<input load="python">
+commands = [
+    "get hardware nic all",
+]
+platform = ["fortigate"]
+</input>
+
+<macro>
+def port_status(data):
+    data["line"] = "up" if data["linkfail"] == "0" else "down"
+    return data
+</macro>
+
+<vars>local_hostname="gethostname"</vars>
+
+<group name="{{ local_hostname }}.interfaces**.{{ interface }}**.state" macro="port_status">
+prio={{ priority }}, phy_index={{ interface_id | re("\\s*\\d+") }}, itf_name={{ interface | re("\\s*\\w+") | resub("\\s*","") }}, mac={{ phy_mac }}, vmac={{ mac }}, linkfail={{ linkfail }}
+</group>
+
+</template>

@@ -10,13 +10,17 @@ commands = [
     "show lldp neighbor details",
     "show running-config",
     "show interface",
+    "show mac address-table"
 ]
 kwargs = {"strip_prompt": False}
 method = "send_command"
 platform = ["cisco_ios"]
 </input>
 
-<vars>local_hostname="gethostname"</vars>
+<vars>
+local_hostname="gethostname"
+vlan_regex = "\\s{,4}\\d+"
+</vars>
 
 <macro>
 def process_vlans(data):
@@ -81,4 +85,10 @@ Platform: {{ target.bottom_label | ORPHRASE }},  Capabilities: {{ ignore(ORPHRAS
 Interface: {{ src_label | resuball(IfsNormalize) }},  Port ID (outgoing port): {{ trgt_label | ORPHRASE | resuball(IfsNormalize) }}
 {{ source | set("local_hostname") }}
 </group>
+
+<!-- Mac Address Table group-->
+<group name="{{ local_hostname }}.mac_address_table*" expand="">
+        {{ vlan | re(vlan_regex) | macro(trim_whitespace) }} {{ mac_address | MAC }} {{ type }} {{ learn }} {{ age }} {{ interface | resuball("IfsNormalize") }}
+</group>
 </template>
+

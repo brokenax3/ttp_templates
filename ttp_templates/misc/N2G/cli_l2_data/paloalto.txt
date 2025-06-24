@@ -1,0 +1,44 @@
+<template name="paloalto" results="per_template">
+<input load="python">
+commands = [
+    "show interface all",
+]
+platform = ["paloalto"]
+</input>
+
+<macro>
+import re
+def port_status(data):
+    if "up" in data["status"].split("/"):
+        data["line"] = "up"
+    else:
+        data["line"] = "down"
+
+    return data
+
+def gethostname(data):
+
+    command_regex = "\\w+@(.*)\\((?:active|passive)\\)> show interface all\\s+"
+    command_matches = re.match(command_regex, data["command"])
+
+    if command_matches:
+        data["local_hostname"] = command_matches.group(1)
+    
+    return data
+</macro>
+
+<vars>
+<!-- local_hostname="gethostname" -->
+command_regex = "\\w+@(.*)\\((?:active|passive)\\)> show interface all\\s+"
+</vars>
+
+<group name="{{ local_hostname }}" macro="gethostname">
+{{ command | re("command_regex") }}
+</group>
+
+<group name="{{ local_hostname }}.interfaces**.{{ interface }}**.state" macro="port_status">
+<!-- {{ interface | ORPHRASE }} {{ interface_id | re ("\\d+") }} {{ status }} {{ mac }} -->
+{{ interface }}            {{ interface_id }}   {{ status }}  {{ mac }} 
+</group>
+
+</template>
