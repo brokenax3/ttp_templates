@@ -1,0 +1,78 @@
+<template>
+<doc>
+This is an example of how to add a template for a device.
+
+The device configuration example is as follows:
+
+hostname-abc # show interface
+
+eth1/1 no-1 up/100G 0000:0000:0001
+eth1/2 no-2 down/100G 0000:0000:0002
+eth1/3 no-3 up/10G 0000:0000:0003
+
+
+The resulting output should be as follows:
+
+[[{
+    "hostname-abc" : {
+        "interfaces" : {
+            "eth1/1" : {
+                "state" : {
+                    "interface_id" : "no-1"
+                    "status" : "up/100G"
+                    "mac" : "0000:0000:0001"
+                },
+            },
+            "eth1/2" : {
+                "state" : {
+                    "interface_id" : "no-2"
+                    "status" : "down/100G"
+                    "mac" : "0000:0000:0002"
+                },
+            },
+            "eth1/3" : {
+                "state" : {
+                    "interface_id" : "no-3"
+                    "status" : "up/10G"
+                    "mac" : "0000:0000:0003"
+                },
+            },
+        },
+    },
+}]]
+</doc>
+
+<vars>
+command_regex = "(.*) # show interface"
+</vars>
+
+<macro>
+import re
+def port_status(data):
+    if "up" in data["status"].split("/"):
+        data["line"] = "up"
+    else:
+        data["line"] = "down"
+
+    return data
+
+def gethostname(data):
+
+    command_regex = "(.*) # show interface"
+    command_matches = re.match(command_regex, data["command"])
+
+    if command_matches:
+        data["local_hostname"] = command_matches.group(1)
+    
+    return data
+</macro>
+
+<group name="{{ local_hostname }}" macro="gethostname">
+{{ command | re("command_regex") }}
+</group>
+
+<group name="{{ local_hostname }}.interfaces**.{{ interface }}**.state" macro="port_status">
+{{ interface }} {{ interface_id }} {{ status }} {{ mac | MAC }} 
+</group>
+
+</template>
