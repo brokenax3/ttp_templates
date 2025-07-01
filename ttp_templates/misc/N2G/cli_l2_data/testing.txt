@@ -1,4 +1,4 @@
-<template>
+<template name="testing" results="per_template">
 <doc>
 This is an example of how to add a template for a device.
 
@@ -63,6 +63,7 @@ def gethostname(data):
 
     if command_matches:
         data["local_hostname"] = command_matches.group(1)
+        data.pop("command")
     
     return data
 </macro>
