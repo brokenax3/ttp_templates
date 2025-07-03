@@ -24,7 +24,7 @@ short_interface_names = {
     'POS': ['^POS', '^PO'],
     'LAG': ['^PortChannel', '^Port-channel', '^Port-Channel', '^port-channel', '^po', '^Po', "^Bundle-Ether", "^BE", "^Eth-Trunk", "^ae"],
     'Serial': ['^Serial', '^Se', '^S'],
-    'TE': ['^TenGigabitEthernet', '^TenGigEthernet', '^TenGigEth', '^TenGigE', '^TenGig', '^TeGig', '^Ten', '^te', '^XGigabitEthernet', '^TenGe', '^10GE', '^xe-'],
+    'TE': ['^TenGigabitEthernet', '^TenGigEthernet', '^TenGigEth', '^TenGigE', '^TenGig', '^TeGig', '^Ten', '^te', '^Te', '^XGigabitEthernet', '^TenGe', '^10GE', '^xe-'],
     'Tunnel': ['^Tunnel', '^Tun', '^Tu', '^gr-'],
     '25GE': ['^TwentyFiveGigabitEthernet', '^TwentyFiveGigEthernet', '^TwentyFiveGigEth', '^TwentyFiveGigE', '^TwentyFiveGig', '^Twe', '^TF', '^Tf', '^tf'],
     '2GE': ['^Tw', '^Two'],
@@ -40,7 +40,7 @@ short_interface_names = {
 # dictionary, that used by add all connected nodes feature
 physical_ports = [
     'ATM', 'Eth', 'FE', 'Fddi', '50GE', '40GE', '400GE', 'GE',
-    '100GE', 'MGMT', 'POS', 'Serial', 'Te', '25GE', '2GE',
+    '100GE', 'MGMT', 'POS', 'Serial', 'TE', '25GE', '2GE',
     '200GE', 'Pt',
 ]
 
