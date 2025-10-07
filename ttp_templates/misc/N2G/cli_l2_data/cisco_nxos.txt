@@ -99,4 +99,9 @@ MTU: {{ data.peer_mtu }}
 Physical Location: {{ data.peer_location | ORPHRASE }}
 {{ source | set("local_hostname") }}
 </group>
+
+<!-- Mac Address Table group-->
+<group name="{{ local_hostname }}.mac_address_table*" expand="">
+*{{ vlan | re("\\s{,4}\\d+") | macro(trim_whitespace) }} {{ mac_address | MAC }} {{ type }} {{ age }} {{ secure }} {{ nfty }} {{ interface | resuball(IfsNormalize) }}
+</group>
 </template>
